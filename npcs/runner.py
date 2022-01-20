@@ -1,6 +1,7 @@
 import pygame.image
 import pygame
 import math
+import os
 pygame.init()
 
 WIDTH = 1920
@@ -10,16 +11,19 @@ screen = pygame.display.set_mode((1920, 1080))
 road = [(100, 100), (1820, 100), (1820, 780), (100, 780)]
 clock = pygame.time.Clock()
 pygame.display.set_caption('Tower Of Defence')
+# PATH = os.getcwd()
+
+ROOT = '/Users/mac2/PycharmProjects/pythonProject1/compUsTowerDefence/npcs'
 
 
 class Warrior:
     def __init__(self, x, y, road):
-        self.images_left = [pygame.image.load('/compUsTowerDefence/npcs/skins/Knight/SL1.png'),
-                            pygame.image.load('/compUsTowerDefence/npcs/skins/Knight/SL2.png'),
-                            pygame.image.load('/compUsTowerDefence/npcs/skins/Knight/SL3.png')]
-        self.images_right = [pygame.image.load('/compUsTowerDefence/npcs/skins/Knight/SR1.png'),
-                             pygame.image.load('/compUsTowerDefence/npcs/skins/Knight/SR2.png'),
-                             pygame.image.load('/compUsTowerDefence/npcs/skins/Knight/SR3.png')]
+        self.images_left = [pygame.image.load(ROOT + '/skins/Knight/SL1.png'),
+                            pygame.image.load(ROOT + '/skins/Knight/SL2.png'),
+                            pygame.image.load(ROOT + '/skins/Knight/SL3.png')]
+        self.images_right = [pygame.image.load(ROOT + '/skins/Knight/SR1.png'),
+                             pygame.image.load(ROOT + '/skins/Knight/SR2.png'),
+                             pygame.image.load(ROOT + '/skins/Knight/SR3.png')]
         self.type = 'running'
         self.road = road
         self.road_stop = 0
@@ -71,7 +75,7 @@ class Warrior:
         self.step += 1
 
 
-a = Warrior(1820, 780, road)
+a = Warrior(0, 0, road)
 running = True
 while running:
     for event in pygame.event.get():
