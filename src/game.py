@@ -1,9 +1,8 @@
 import pygame
 import sys
 import os
-from npcs.fast.fast import FastNpc
-# from battleMap import BattleMap
-from src.battleMap import BattleMap
+from compUsTowerDefence.src.battleMap import BattleMap
+from compUsTowerDefence.npcs.runner import Warrior
 
 
 class Battlefield:
@@ -11,11 +10,11 @@ class Battlefield:
         pygame.init()
         self.screen = pygame.display.set_mode((1920, 1080))
         self.battleMap = BattleMap()
-        self.towerTypes =   []
-        self.npcTypes = [FastNpc]
-        self.towers =       []
-        self.npc =          [FastNpc(300, 1080, 3, self.battleMap.waypoints)]
-        self.projectiles =  []
+        self.towerTypes = []
+        self.npcTypes = [Warrior]
+        self.towers = []
+        self.npc = [Warrior(300, 1080, self.battleMap.waypoints)]
+        self.projectiles = []
         self.hp = 20
         self.gold = 0
         self.hpFlow = 0  # amount of npcHp spawned per second. measures difficulty
@@ -23,9 +22,6 @@ class Battlefield:
 
     # def getNpcList(self):
     #     return os.listdir('../npcs/')[1:]
-
-    def buildable(self, x, y):
-        return True
 
     def utilizeCorpses(self):
         i = 0
@@ -40,21 +36,27 @@ class Battlefield:
         self.screen.fill((0, 0, 0))
         self.battleMap.draw(self.screen)
         for npc in self.npc:
-            npc.draw(self.screen)
+            npc.draw()
         for tower in self.towers:
             tower.draw(self.screen)
         pygame.display.flip()
 
     def buildTower(self, tower, x, y):
-        if self.buildable(x, y):
-            self.towers.append(tower(x, y))
-            self.gold -= tower.price
+        # self.towers.append(tower(x, y))
+        # self.gold -= tower.price
+        print('ya zarabotal')
 
     def mainLoop(self):
         while self.hp > 0:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        x = pygame.mouse.get_pos()[0]
+                        y = pygame.mouse.get_pos()[1]
+                        if BattleMap.check_building_ground(x, y):
+                            self.buildTower(None, x, y)
             self.draw()
             self.update()
             self.clock.tick(60)
@@ -66,6 +68,4 @@ class Battlefield:
 
 
 tmp = Battlefield()
-
-
-
+tmp.mainLoop()
