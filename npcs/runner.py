@@ -36,7 +36,7 @@ class Warrior:
         self.step = 0
 
     def draw(self):
-        a.anim()
+        self.anim()
         screen.blit(self.image, self.rect)
         pygame.display.flip()
 
@@ -75,17 +75,3 @@ class Warrior:
         self.step += 1
 
 
-a = Warrior(0, 0, road)
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-    screen.fill((255, 255, 255))
-    a.draw()
-    a.move()
-    for i in range(len(road)):
-        pygame.draw.rect(screen, pygame.Color('red'), (list(road[i])[0], list(road[i])[1], 5, 5))
-    pygame.display.flip()
-    clock.tick(5)
-pygame.quit()
