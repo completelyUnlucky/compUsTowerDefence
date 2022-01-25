@@ -39,27 +39,27 @@ class Battlefield:
             npc.draw()
         for tower in self.towers:
             tower.draw(self.screen)
-        pygame.display.flip()
 
     def buildTower(self, tower, x, y):
         # self.towers.append(tower(x, y))
         # self.gold -= tower.price
-        print('ya zarabotal')
+        pass
 
     def mainLoop(self):
         while self.hp > 0:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sys.exit()
+                    self.hp = 0
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         x = pygame.mouse.get_pos()[0]
                         y = pygame.mouse.get_pos()[1]
-                        if BattleMap.check_building_ground(x, y):
+                        if self.battleMap.check_building_ground(x, y):
                             self.buildTower(None, x, y)
             self.draw()
             self.update()
             self.clock.tick(60)
+            pygame.display.flip()
 
     def update(self):
         for npc in self.npc:
