@@ -1,9 +1,11 @@
 import os
 import random
 import pygame
+import sys
 # from maps import *
 
-path = '/Users/mac2/Desktop/towdef/maps'
+
+path = '/Users/mac2/PycharmProjects/pythonProject1/compUsTowerDefence/maps'
 
 
 def process_cords(cords):

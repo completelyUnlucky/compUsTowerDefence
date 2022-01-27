@@ -20,8 +20,8 @@ class Battlefield:
         self.hpFlow = 0  # amount of npcHp spawned per second. measures difficulty
         self.clock = pygame.time.Clock()
 
-    # def getNpcList(self):
-    #     return os.listdir('../npcs/')[1:]
+    def getNpcList(self):
+        return os.listdir('../npcs/')[1:]
 
     def utilizeCorpses(self):
         i = 0
