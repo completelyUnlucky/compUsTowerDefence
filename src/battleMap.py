@@ -1,3 +1,4 @@
+import compUsTowerDefence.constants as con
 import os
 import random
 import pygame
@@ -5,7 +6,7 @@ import sys
 # from maps import *
 
 
-path = '/Users/mac2/PycharmProjects/pythonProject1/compUsTowerDefence/maps'
+path = ''
 
 
 def process_cords(cords):
@@ -18,11 +19,11 @@ def process_cords(cords):
 
 class BattleMap:
     def __init__(self):
-        chozen_map = random.choice([file for file in os.listdir(path)])
-        self.map_img = pygame.image.load(f"{path}/{chozen_map}/{chozen_map}.png")
+        chozen_map = random.choice([file for file in os.listdir(con.MAPS_PATH_MAC)])
+        self.map_img = pygame.image.load(f"{con.MAPS_PATH_MAC}/{chozen_map}/{chozen_map}.png")
         self.map_rect = self.map_img.get_rect(topleft=(0, 0))
-        self.waypoints = process_cords(open(f"{path}/{chozen_map}/{chozen_map}.route").readlines())
-        self.mounting_points = process_cords(open('/Users/mac2/PycharmProjects/pythonProject1/compUsTowerDefence/maps/example/example.mp').readlines())
+        self.waypoints = process_cords(open(f"{con.MAPS_PATH_MAC}/{chozen_map}/{chozen_map}.route").readlines())
+        self.mounting_points = process_cords(open(con.MP_PATH_MAC).readlines())
 
     def draw(self, screen):
         screen.blit(self.map_img, self.map_rect)

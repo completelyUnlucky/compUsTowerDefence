@@ -1,3 +1,4 @@
+import compUsTowerDefence.constants as con
 import pygame.image
 import pygame
 import math
@@ -13,17 +14,15 @@ clock = pygame.time.Clock()
 pygame.display.set_caption('Tower Of Defence')
 # PATH = os.getcwd()
 
-ROOT = '/Users/mac2/PycharmProjects/pythonProject1/compUsTowerDefence/npcs'
-
 
 class Warrior:
     def __init__(self, x, y, road):
-        self.images_left = [pygame.image.load(ROOT + '/skins/Knight/SL1.png'),
-                            pygame.image.load(ROOT + '/skins/Knight/SL2.png'),
-                            pygame.image.load(ROOT + '/skins/Knight/SL3.png')]
-        self.images_right = [pygame.image.load(ROOT + '/skins/Knight/SR1.png'),
-                             pygame.image.load(ROOT + '/skins/Knight/SR2.png'),
-                             pygame.image.load(ROOT + '/skins/Knight/SR3.png')]
+        self.images_left = [pygame.image.load(con.SKELETON_PATH_WIN32[:-1] + 'SL1.png'),
+                            pygame.image.load(con.SKELETON_PATH_WIN32[:-1] + 'SL2.png'),
+                            pygame.image.load(con.SKELETON_PATH_WIN32[:-1] + 'SL3.png')]
+        self.images_right = [pygame.image.load(con.SKELETON_PATH_WIN32[:-1] + 'SR1.png'),
+                             pygame.image.load(con.SKELETON_PATH_WIN32[:-1] + 'SR2.png'),
+                             pygame.image.load(con.SKELETON_PATH_WIN32[:-1] + 'SR3.png')]
         self.type = 'running'
         self.road = road
         self.road_stop = 0
@@ -75,3 +74,11 @@ class Warrior:
         self.step += 1
 
 
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    pygame.display.flip()
+
+pygame.quit()
