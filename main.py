@@ -1,13 +1,16 @@
 import os
+from os import path
 
-# game = Battlefield()
-# game.mainLoop()
-
-#
-# ROOT = os.getcwd()
-# print(ROOT + '/maps')
+directory = os.path.dirname(os.getcwd())
 
 
-for address, dirs, files in os.walk('.'):
-    if not '.git' in address:
-        print(address + '|||' + str(dirs) + '|||' + str(files))
+def find_file(file):
+    for root, dirs, files in os.walk(directory):
+        if file in files:
+            return os.path.join(root, file)
+
+
+def find_pack(pack):
+    for root, dirs, files in os.walk(directory):
+        if pack in dirs:
+            return os.path.join(root, pack)

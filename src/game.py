@@ -50,6 +50,9 @@ class Battlefield:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.hp = 0
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_ESCAPE:
+                        sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         x = pygame.mouse.get_pos()[0]
