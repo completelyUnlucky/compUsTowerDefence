@@ -49,8 +49,8 @@ class Battlefield:
         while self.hp > 0:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.hp = 0
-                if event.type == pygame.KEYUP:
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -59,6 +59,7 @@ class Battlefield:
                         y = pygame.mouse.get_pos()[1]
                         if self.battleMap.check_building_ground(x, y):
                             self.buildTower(None, x, y)
+                            print(self.battleMap.check_building_ground(x, y))
             self.draw()
             self.update()
             self.clock.tick(60)
