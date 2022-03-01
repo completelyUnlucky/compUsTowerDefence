@@ -1,3 +1,4 @@
+import main
 import re
 
 
@@ -5,42 +6,46 @@ class WaveEngine:
     def __init__(self, file):
         self.open = open(file).readlines()
         self.waves = []
-        self.numbers = []
-        self.words = []
-        self.army = []
-        self.test = []
+        self.prepare_data()
 
-    def run(self):
+    def prepare_data(self):
         self.split()
-        self.find_numbers()
+        # self.find_numbers()
         self.find_str()
-        print(self.generation())
+        self.waves = self.find_str()
+        self.dict()
 
     def split(self):
         for i in self.open:
             self.waves.append(list(i.split()))
 
-    def find_numbers(self):
-        for i in self.waves:
-            for j in i:
-                find = re.findall(r'\d+', j)
-                str_find = ' '.join(find)
-                self.numbers.append(int(str_find))
-        return self.numbers
+    # def find_numbers(self):
+    #     numbers = []
+    #     for i in self.waves:
+    #         for j in i:
+    #             find = re.findall(r'\d+', j)
+    #             num_find = ' '.join(find)
+    #             numbers.append(int(num_find))
+    #     return numbers
 
     def find_str(self):
-        for i in self.waves:
-            for j in i:
-                find = re.findall(r'\D', j)
-                str_find = ''.join(find)
-                self.words.append(str(str_find))
-        return self.words
+        waves = []
+        for line in self.open:
+            string = line.split()
+            waves.append([])
+            for i in string:
+                for nums, j in enumerate(i):
+                    if j.isdigit():
+                        waves[-1].append((i[:nums] + ' ') * int(nums))
+                        break
+        return waves
 
-    def generation(self):
-        for i, j in zip(self.numbers, self.words):
-            self.army.append(i * j)
-        return self.army
+    def dict(self):
+        dictionary = {}
+        # for words in self.waves:
+        #     for i in words[0]:
+        #         if i == ' ':
 
 
-wave = WaveEngine('waves.txt')
-wave.run()
+wave = WaveEngine(main.find_file('example.waves'))
+
