@@ -1,5 +1,6 @@
 import main
 import re
+from npcs.runner import Warrior
 
 
 class WaveEngine:
@@ -10,23 +11,23 @@ class WaveEngine:
 
     def prepare_data(self):
         self.split()
-        # self.find_numbers()
+        self.find_numbers()
         self.find_str()
-        self.waves = self.find_str()
         self.dict()
 
     def split(self):
         for i in self.open:
             self.waves.append(list(i.split()))
 
-    # def find_numbers(self):
-    #     numbers = []
-    #     for i in self.waves:
-    #         for j in i:
-    #             find = re.findall(r'\d+', j)
-    #             num_find = ' '.join(find)
-    #             numbers.append(int(num_find))
-    #     return numbers
+    def find_numbers(self):
+        numbers = []
+        for line in self.open:
+            numbers.append([])
+            for i in line:
+                for j in i:
+                    if j.isdigit():
+                        numbers[-1].append(int(j))
+        return numbers
 
     def find_str(self):
         waves = []
@@ -41,11 +42,14 @@ class WaveEngine:
         return waves
 
     def dict(self):
-        dictionary = {}
-        # for words in self.waves:
-        #     for i in words[0]:
-        #         if i == ' ':
+        dictionary = {'warrior': Warrior}
+        tmp = []
+        for i, j in zip(dictionary, self.find_numbers()):
+            tmp.append([])
+            for nums in range(len(self.find_numbers())):
+                for num in range(len(self.find_numbers()[nums])):
+                    tmp[-1].append(dictionary[i])
+        print(tmp)
 
 
 wave = WaveEngine(main.find_file('example.waves'))
-
